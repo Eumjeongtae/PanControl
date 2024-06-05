@@ -6,7 +6,12 @@ interface BoxDesign1Props {
     $width: string;
     $direction: string;
 }
-
+export const HomeBody = styled.main`
+    position:relative;
+    padding : 0 4%;
+    background-color:#fff;
+  
+    `
 export const MainHeader = styled.div`
     position:fixed;
     z-index:10;
@@ -62,7 +67,7 @@ export const PanControlBox = styled.div`
 export const BoxDesign1 = styled.div<BoxDesign1Props>`
     display: flex;
     flex-direction: ${(props) => props.$direction};
-    padding: 2% 4% 7%;
+    padding: 3% 4% 7%;
     background: var(--background-gray5);
     box-sizing: border-box;
     width: ${(props) => props.$width};

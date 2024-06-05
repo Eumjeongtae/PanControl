@@ -21,7 +21,7 @@ export const contentMarginBottom = css`
 
 export const MainBody = styled.main`
     position:relative;
-    padding : 0 4%;
+    /* padding : 0 4%; */
     background-color:#fff;
   
     `

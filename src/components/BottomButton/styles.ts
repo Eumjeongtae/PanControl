@@ -9,7 +9,7 @@ export const BottomButtonBox = styled.div`
     align-items:center;
     justify-content:space-between;
     width: 100%;
-    height: 70px;
+    height: 80px;
     background-color : #EDEFF6; 
     padding:0 4%;
     box-sizing:border-box;

@@ -1,5 +1,5 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { MainHeader, MainHeaderIconBox, MainHeaderTab, MainHeaderTabBox, MainHeaderTitle, MainHeaderTitleText, BoxDesign1, PanControlBox, PanControlOptions, PanControlText, BoxDesignText1, GroupPanBox, GroupPan } from './styles';
+import { MainHeader, MainHeaderIconBox, MainHeaderTab, MainHeaderTabBox, MainHeaderTitle, MainHeaderTitleText, BoxDesign1, PanControlBox, PanControlOptions, PanControlText, BoxDesignText1, GroupPanBox, GroupPan, HomeBody } from './styles';
 import { useState } from "react";
 import { PiDotsThreeOutlineThin } from "react-icons/pi";
 import PanControlButtonGroup1 from "../PanControlButton/PanControlButton1";
@@ -14,7 +14,7 @@ interface PanPlayState {
 
 export default function Home() {
   const [mainTabSelct, setMainTabSelect] = useState<string>('all');
-  const [panPlay, setPanPlay] = useState<PanPlayState>({ pan1: false, pan2: true, pan3: false , pan4: true });
+  const [panPlay, setPanPlay] = useState<PanPlayState>({ pan1: false, pan2: true, pan3: false, pan4: true });
 
   const playPan = (key: keyof PanPlayState) => {
     setPanPlay({ ...panPlay, [key]: !panPlay[key] });
@@ -47,20 +47,36 @@ export default function Home() {
     );
   };
 
-  return (
-    <>
-      <MainHeader>
-        <MainHeaderTitle>
-          <img src="./img/top_location_ico.png" alt="" />
-          <MainHeaderTitleText>딸기 하우스</MainHeaderTitleText>
-          <MdKeyboardArrowDown />
-        </MainHeaderTitle>
+  return (<>
+    <MainHeader>
+      <MainHeaderTitle>
+        <img src="./img/top_location_ico.png" alt="" />
+        <MainHeaderTitleText>딸기 하우스</MainHeaderTitleText>
+        <MdKeyboardArrowDown />
+      </MainHeaderTitle>
 
-        <MainHeaderIconBox>
-          <img src="./img/top_noti_ico_off.png" alt="" />
-          <img src="./img/top_mypage_ico.png" alt="" />
-        </MainHeaderIconBox>
-      </MainHeader>
+      <MainHeaderIconBox>
+        <img src="./img/top_noti_ico_off.png" alt="" />
+        <img src="./img/top_mypage_ico.png" alt="" />
+      </MainHeaderIconBox>
+    </MainHeader>
+
+    {/* <BoxDesign1 $width={'100%'} $direction='row' >
+
+        <BoxDesignText1>
+          <img src="./img/model_img.png" alt="" />
+          <PanControlText>
+            그룹 이름이 들어갑니다.
+          </PanControlText>
+        </BoxDesignText1>
+
+        <PanControlButtonGroup2
+          isPlaying={panPlay['pan3']}
+          onPlayPauseClick={() => playPan('pan3')}
+        />
+      </BoxDesign1> */}
+
+    <HomeBody>
 
       <MainHeaderTabBox>
         <MainHeaderTab onClick={() => setMainTabSelect('all')} className={`${mainTabSelct === 'all' ? 'on' : ''}`}>
@@ -136,6 +152,7 @@ export default function Home() {
           onPlayPauseClick={() => playPan('pan4')}
         />
       </BoxDesign1>
-    </>
+    </HomeBody>
+  </>
   );
 }
