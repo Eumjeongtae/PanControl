@@ -1,9 +1,26 @@
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { MainHeader, MainHeaderIconBox, MainHeaderTab, MainHeaderTabBox, MainHeaderTitle, MainHeaderTitleText, BoxDesign1, PanControlBox, PanControlOptions, PanControlText, BoxDesignText1, GroupPanBox, GroupPan, HomeBody } from './styles';
+import {
+  MainHeader,
+  MainHeaderIconBox,
+  MainHeaderTab,
+  MainHeaderTabBox,
+  MainHeaderTitle,
+  MainHeaderTitleText,
+  BoxDesign1,
+  PanControlBox,
+  PanControlOptions,
+  PanControlText,
+  BoxDesignText1,
+  GroupPanBox,
+  GroupPan,
+  HomeBody,
+} from "./styles";
 import { useState } from "react";
 import { PiDotsThreeOutlineThin } from "react-icons/pi";
 import PanControlButtonGroup1 from "../PanControlButton/PanControlButton1";
 import PanControlButtonGroup2 from "../PanControlButton/PanControlButton2";
+import ChoiceModal from "../Modal/ChoiceModal/ChoiceModal";
+import useModal from "../../hooks/useModal";
 
 interface PanPlayState {
   pan1: boolean;
@@ -13,29 +30,49 @@ interface PanPlayState {
 }
 
 export default function Home() {
-  const [mainTabSelct, setMainTabSelect] = useState<string>('all');
-  const [panPlay, setPanPlay] = useState<PanPlayState>({ pan1: false, pan2: true, pan3: false, pan4: true });
+  const [mainTabSelct, setMainTabSelect] = useState<string>("all");
+  const [panPlay, setPanPlay] = useState<PanPlayState>({
+    pan1: false,
+    pan2: true,
+    pan3: false,
+    pan4: true,
+  });
+  const houseName = [
+    "딸기 하우스",
+    "수박 하우스",
+    "귤 하우스",
+    "감 하우스",
+    "두리안 하우스",
+  ];
+  const choideModalControl = useModal();
 
   const playPan = (key: keyof PanPlayState) => {
     setPanPlay({ ...panPlay, [key]: !panPlay[key] });
-  }
+  };
 
   const renderPanControl = (key: keyof PanPlayState) => {
     return (
-      <BoxDesign1 className={`${panPlay[key] ? 'on' : ''}`} $width={'49%'} $direction='column'>
+      <BoxDesign1
+        className={`${panPlay[key] ? "on" : ""}`}
+        $width={"49%"}
+        $direction="column"
+      >
         <PanControlOptions>
-          <PiDotsThreeOutlineThin size={22} color={panPlay[key] ? 'white' : ''} />
+          <PiDotsThreeOutlineThin
+            size={22}
+            color={panPlay[key] ? "white" : ""}
+          />
         </PanControlOptions>
 
         <BoxDesignText1>
-          {panPlay[key] ?
+          {panPlay[key] ? (
             <img src="./img/fan_ico_on.png" alt="" />
-            :
+          ) : (
             <img src="./img/fan_ico_off.png" alt="" />
-          }
-          <PanControlText className={`${panPlay[key] ? 'on' : ''}`}>
+          )}
+          <PanControlText className={`${panPlay[key] ? "on" : ""}`}>
             글자수 제한 글자수 제한 글자수 제한
-            <span>{panPlay[key] ? '작동중' : '멈춤'}</span>
+            <span>{panPlay[key] ? "작동중" : "멈춤"}</span>
           </PanControlText>
         </BoxDesignText1>
 
@@ -47,112 +84,127 @@ export default function Home() {
     );
   };
 
-  return (<>
-    <MainHeader>
-      <MainHeaderTitle>
-        <img src="./img/top_location_ico.png" alt="" />
-        <MainHeaderTitleText>딸기 하우스</MainHeaderTitleText>
-        <MdKeyboardArrowDown />
-      </MainHeaderTitle>
+  return (
+    <>
+      <MainHeader>
+        <MainHeaderTitle>
+          <img src="./img/top_location_ico.png" alt="" />
+          <MainHeaderTitleText onClick={() => choideModalControl.openModal()}>
+            딸기 하우스
+          </MainHeaderTitleText>
+          <MdKeyboardArrowDown />
+        </MainHeaderTitle>
 
-      <MainHeaderIconBox>
-        <img src="./img/top_noti_ico_off.png" alt="" />
-        <img src="./img/top_mypage_ico.png" alt="" />
-      </MainHeaderIconBox>
-    </MainHeader>
+        <MainHeaderIconBox>
+          <img src="./img/top_noti_ico_off.png" alt="" />
+          <img src="./img/top_mypage_ico.png" alt="" />
+        </MainHeaderIconBox>
+      </MainHeader>
 
-    {/* <BoxDesign1 $width={'100%'} $direction='row' >
+      <HomeBody>
+        <MainHeaderTabBox>
+          <MainHeaderTab
+            onClick={() => setMainTabSelect("all")}
+            className={`${mainTabSelct === "all" ? "on" : ""}`}
+          >
+            모든 장치
+          </MainHeaderTab>
+          <MainHeaderTab
+            onClick={() => setMainTabSelect("single")}
+            className={`${mainTabSelct === "single" ? "on" : ""}`}
+          >
+            단일 장치3
+          </MainHeaderTab>
+          <MainHeaderTab
+            onClick={() => setMainTabSelect("groub")}
+            className={`${mainTabSelct === "groub" ? "on" : ""}`}
+          >
+            그룹 2
+          </MainHeaderTab>
+        </MainHeaderTabBox>
 
-        <BoxDesignText1>
-          <img src="./img/model_img.png" alt="" />
-          <PanControlText>
-            그룹 이름이 들어갑니다.
-          </PanControlText>
-        </BoxDesignText1>
+        <PanControlBox>
+          {renderPanControl("pan1")}
+          {renderPanControl("pan2")}
+        </PanControlBox>
 
-        <PanControlButtonGroup2
-          isPlaying={panPlay['pan3']}
-          onPlayPauseClick={() => playPan('pan3')}
+        <BoxDesign1 $width={"100%"} $direction="column">
+          <PanControlOptions>
+            <PiDotsThreeOutlineThin size={22} />
+          </PanControlOptions>
+
+          <BoxDesignText1>
+            <img src="./img/folder_ico.png" alt="" />
+            <PanControlText>
+              그룹 이름이 들어갑니다.
+              <span>2개가 작동중</span>
+            </PanControlText>
+          </BoxDesignText1>
+          <GroupPanBox>
+            <GroupPan>
+              <img src="./img/fan_ico_off.png" alt="" />
+            </GroupPan>
+            <GroupPan className="on">
+              {" "}
+              <img src="./img/fan_ico_on.png" alt="" />
+            </GroupPan>
+            <GroupPan>
+              <img src="./img/fan_ico_off.png" alt="" />
+            </GroupPan>
+            <GroupPan>
+              {" "}
+              <img src="./img/fan_ico_off.png" alt="" />
+            </GroupPan>
+          </GroupPanBox>
+          <PanControlButtonGroup2
+            isPlaying={panPlay["pan3"]}
+            onPlayPauseClick={() => playPan("pan3")}
+          />
+        </BoxDesign1>
+        {/* /////////  모든 팬이 작동중일떄 */}
+        <BoxDesign1 $width={"100%"} $direction="column">
+          <PanControlOptions>
+            <PiDotsThreeOutlineThin size={22} />
+          </PanControlOptions>
+
+          <BoxDesignText1>
+            <img src="./img/folder_ico.png" alt="" />
+            <PanControlText>
+              그룹 이름이 들어갑니다.
+              <span>2개가 작동중</span>
+            </PanControlText>
+          </BoxDesignText1>
+
+          <GroupPanBox className="allPanPlay">
+            <GroupPan>
+              <img src="./img/fan_ico_off.png" alt="" />
+            </GroupPan>
+            <GroupPan className="on">
+              {" "}
+              <img src="./img/fan_ico_on.png" alt="" />
+            </GroupPan>
+            <GroupPan>
+              <img src="./img/fan_ico_off.png" alt="" />
+            </GroupPan>
+            <GroupPan>
+              {" "}
+              <img src="./img/fan_ico_off.png" alt="" />
+            </GroupPan>
+          </GroupPanBox>
+
+          <PanControlButtonGroup2
+            isPlaying={panPlay["pan4"]}
+            onPlayPauseClick={() => playPan("pan4")}
+          />
+        </BoxDesign1>
+      </HomeBody>
+      {choideModalControl.isOpen && (
+        <ChoiceModal
+          isModalOpen={choideModalControl.isOpen}
+          houseName={houseName}
+          onCLose={choideModalControl.closeModal}
         />
-      </BoxDesign1> */}
-
-    <HomeBody>
-
-      <MainHeaderTabBox>
-        <MainHeaderTab onClick={() => setMainTabSelect('all')} className={`${mainTabSelct === 'all' ? 'on' : ''}`}>
-          모든 장치
-        </MainHeaderTab>
-        <MainHeaderTab onClick={() => setMainTabSelect('single')} className={`${mainTabSelct === 'single' ? 'on' : ''}`}>
-          단일 장치3
-        </MainHeaderTab>
-        <MainHeaderTab onClick={() => setMainTabSelect('groub')} className={`${mainTabSelct === 'groub' ? 'on' : ''}`}>
-          그룹 2
-        </MainHeaderTab>
-      </MainHeaderTabBox>
-
-      <PanControlBox>
-        {renderPanControl('pan1')}
-        {renderPanControl('pan2')}
-      </PanControlBox>
-
-      <BoxDesign1 $width={'100%'} $direction='column'>
-        <PanControlOptions>
-          <PiDotsThreeOutlineThin size={22} />
-        </PanControlOptions>
-
-        <BoxDesignText1>
-          <img src="./img/folder_ico.png" alt="" />
-          <PanControlText>
-            그룹 이름이 들어갑니다.
-            <span>2개가 작동중</span>
-          </PanControlText>
-        </BoxDesignText1>
-        <GroupPanBox>
-          <GroupPan>
-            <img src="./img/fan_ico_off.png" alt="" />
-          </GroupPan>
-          <GroupPan className="on">  <img src="./img/fan_ico_on.png" alt="" /></GroupPan>
-          <GroupPan>
-            <img src="./img/fan_ico_off.png" alt="" />
-          </GroupPan>
-          <GroupPan> <img src="./img/fan_ico_off.png" alt="" /></GroupPan>
-        </GroupPanBox>
-        <PanControlButtonGroup2
-          isPlaying={panPlay['pan3']}
-          onPlayPauseClick={() => playPan('pan3')}
-        />
-      </BoxDesign1>
-      {/* /////////  모든 팬이 작동중일떄 */}
-      <BoxDesign1 $width={'100%'} $direction='column'>
-        <PanControlOptions>
-          <PiDotsThreeOutlineThin size={22} />
-        </PanControlOptions>
-
-        <BoxDesignText1>
-          <img src="./img/folder_ico.png" alt="" />
-          <PanControlText>
-            그룹 이름이 들어갑니다.
-            <span>2개가 작동중</span>
-          </PanControlText>
-        </BoxDesignText1>
-
-        <GroupPanBox className="allPanPlay">
-          <GroupPan>
-            <img src="./img/fan_ico_off.png" alt="" />
-          </GroupPan>
-          <GroupPan className="on">  <img src="./img/fan_ico_on.png" alt="" /></GroupPan>
-          <GroupPan>
-            <img src="./img/fan_ico_off.png" alt="" />
-          </GroupPan>
-          <GroupPan> <img src="./img/fan_ico_off.png" alt="" /></GroupPan>
-        </GroupPanBox>
-
-        <PanControlButtonGroup2
-          isPlaying={panPlay['pan4']}
-          onPlayPauseClick={() => playPan('pan4')}
-        />
-      </BoxDesign1>
-    </HomeBody>
-  </>
+      )}
+    </>
   );
 }
