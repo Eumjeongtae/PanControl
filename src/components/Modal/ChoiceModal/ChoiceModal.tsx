@@ -15,8 +15,8 @@ interface HouseNameType {
 export default function ChoiceModal({houseName , isModalOpen,onCLose} : HouseNameType) {
   const [selectedItem, setSelectedItem] = useState("딸기 하우스");
   return (
-    <ModalBg isVisible={isModalOpen}>
-      <ModalContainer isVisible={isModalOpen}>
+    <ModalBg isvisible={isModalOpen.toString()}>
+      <ModalContainer isvisible={isModalOpen.toString()}>
         <ChoiceTitle>작업장 선택</ChoiceTitle>
         <ChoiceSubtitle>아래 리스트 중 선택해 주세요</ChoiceSubtitle>
         <ChoiceListContainer>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import BottomButton from "../../components/BottomButton/BottomButton";
 import Home from "../../components/Home/Home";
-import { MainContainer } from "./styles";
+import { MainContainer } from "../../style/GlobalStyle";
 
 export default function MainPage() {
   const [bottomTab, setBottomTab] = useState(1);

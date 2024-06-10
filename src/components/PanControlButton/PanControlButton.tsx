@@ -9,7 +9,7 @@ interface PanControlButtonGroupProps {
   additionalButton?: React.ReactNode;
 }
 
-export default function PanControlButtonGroup2({ isPlaying, onPlayPauseClick }: PanControlButtonGroupProps) {
+export default function PanControlButtonGroup({ isPlaying, onPlayPauseClick }: PanControlButtonGroupProps) {
   return (
     <PanControlBtnBox>
       <PanControlBtn className="play" onClick={onPlayPauseClick}>

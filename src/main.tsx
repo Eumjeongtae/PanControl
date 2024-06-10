@@ -6,6 +6,7 @@ import MainPage from "./page/MainPage/MainPage";
 // import { QueryClient, QueryClientProvider } from 'react-query';
 // import { RouterProvider } from 'react-router-dom';
 import { createBrowserRouter ,RouterProvider} from 'react-router-dom';
+import PanControlPage from "./page/PanControlPage/PanControlPage";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { index: true, element: <MainPage /> },
+      { path: '/panControl', element: <PanControlPage /> },
       { path: '/*', element: <MainPage /> },
     ],
   },
