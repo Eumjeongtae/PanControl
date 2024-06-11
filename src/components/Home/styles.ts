@@ -26,7 +26,6 @@ export const MainHeaderTabBox = styled.ul`
 export const MainHeaderTab = styled.li`
   opacity: 0.3;
   padding-right: 13px;
-  cursor: pointer;
   &.on {
     opacity: 1;
   }

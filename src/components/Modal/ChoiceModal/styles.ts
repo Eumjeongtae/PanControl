@@ -30,7 +30,6 @@ export const ChoiceListItem = styled.div<{ selected?: boolean }>`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
   font-weight:bold;
   &:hover {
     background-color: #E3F2FD;
